@@ -1,0 +1,6 @@
+fastapi
+uvicorn
+python-socketio
+aiofiles
+python-multipart
+jinja2
