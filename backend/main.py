@@ -6,10 +6,9 @@ import shutil
 
 app = FastAPI()
 
-# Mount static folder
+# Mount static folder (corrected path)
 app.mount("/static", StaticFiles(directory="../static"), name="static")
 
-# Connected clients
 clients = []
 
 # Index page
@@ -24,7 +23,7 @@ async def get_chat():
     with open("../frontend/chat.html", encoding="utf-8") as f:
         return HTMLResponse(f.read())
 
-# WebSocket endpoint
+# WebSocket for real-time chat
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
     await websocket.accept()
@@ -39,7 +38,7 @@ async def websocket_endpoint(websocket: WebSocket):
     except WebSocketDisconnect:
         clients.remove(websocket)
 
-# File upload
+# File upload (images)
 @app.post("/upload")
 async def upload_file(file: UploadFile = File(...)):
     os.makedirs("../static/images", exist_ok=True)
